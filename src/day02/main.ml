@@ -38,12 +38,12 @@ let flatten lst =
   in aux lst []   
 
 let parse_line line =
-  Scanf.sscanf line "%d-%d" (fun start stop ->
+  Scanf.sscanf line "%Ld-%Ld" (fun start stop ->
       let rec iter_print num acc = 
-          if num >= stop + 1 then 
+          if num >= Int64.add stop 1L then 
               acc
           else begin          
-              let s_num = string_of_int num in
+              let s_num = Int64.to_string num in
               let len = String.length s_num in
 
               let new_acc = 
@@ -59,12 +59,11 @@ let parse_line line =
                       acc
               in
               
-              iter_print (num + 1) new_acc
+              iter_print (Int64.add num 1L) new_acc
           end                 
       in
       iter_print start []
   )
-    
 
 (* The Solver Logic for part 1*)
 let solve_part_1 lines =
@@ -73,8 +72,8 @@ let solve_part_1 lines =
 
     sum (flatten l)
 
-(* let solve_part_2 lines = *)
-(*     lines List.iter *)
+let solve_part_2 lines =
+    lines List.iter
 
 (* Execution Entry Point *)
 let () =
