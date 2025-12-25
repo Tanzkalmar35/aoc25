@@ -1,5 +1,5 @@
-type move = 
-  | Left of int 
+type move =
+  | Left of int
   | Right of int
 
 (*Part 1*)
@@ -26,7 +26,7 @@ let count_crossings_left starting_pos dist =
     loop starting_pos dist 0
 
 let count_crossings_right starting_pos dist =
-    let rec loop current_pos remaining_dist count = 
+    let rec loop current_pos remaining_dist count =
         if remaining_dist = 0 then (current_pos, count)
         else
             let next_pos = calc_move_r current_pos 1 in
@@ -64,7 +64,7 @@ let read_lines filename =
 let solve_part_1 lines =
   let start_pos = 50 in
   let start_count = 0 in
-  
+
   let (final_pos, final_count) = lines
   |> List.map parse_line      (* Convert ["L60"; "R25"] -> [Left 60; Right 25] *)
   |> List.fold_left (fun (pos, count) move ->
@@ -74,21 +74,21 @@ let solve_part_1 lines =
             | Right dist -> calc_move_r pos dist
           in
 
-          let new_count = 
+          let new_count =
             if new_pos = 0 then count + 1
             else count
           in
 
           (new_pos, new_count)
      ) (start_pos, start_count)
-  in 
+  in
 
   (final_pos, final_count)
 
 let solve_part_2 lines =
   let start_pos = 50 in
   let start_count = 0 in
-  
+
   let (final_pos, final_count) = lines
   |> List.map parse_line      (* Convert ["L60"; "R25"] -> [Left 60; Right 25] *)
   |> List.fold_left (fun (pos, count) move ->
@@ -102,20 +102,20 @@ let solve_part_2 lines =
 
           (new_pos, new_count)
      ) (start_pos, start_count)
-  in 
+  in
 
   (final_pos, final_count)
 
 (* Execution Entry Point *)
 let () =
   (* Get filename from command line, or default to standard path *)
-  let filename = 
-    if Array.length Sys.argv > 1 then Sys.argv.(1) 
-    else "inputs/day01.txt" 
+  let filename =
+    if Array.length Sys.argv > 1 then Sys.argv.(1)
+    else "inputs/day01.txt"
   in
-  
-  let lines = read_lines filename in 
-  
+
+  let lines = read_lines filename in
+
   (*Part 1*)
   let (final_pos, final_count) = solve_part_1 lines in
   Printf.printf "[Part 1] Final Position: %d\n" final_pos;
